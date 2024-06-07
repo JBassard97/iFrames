@@ -12,6 +12,19 @@ header {
   text-align: center;
   font-weight: bold;
   font-style: italic;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+header button {
+  padding: 0;
+  cursor: pointer;
+}
+
+header input {
+  height: 16px;
+  padding: 0;
+  cursor: pointer;
 }
 
 p {
@@ -79,6 +92,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .quad1 {

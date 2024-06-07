@@ -92,7 +92,65 @@ positionBall();
 
 // End resizing logic
 
+// Begin selecting iframe site logic
+
 const quad1Select = document.querySelector(".quad1-select");
 const quad2Select = document.querySelector(".quad2-select");
 const quad3Select = document.querySelector(".quad3-select");
 const quad4Select = document.querySelector(".quad4-select");
+const allSelects = [quad1Select, quad2Select, quad3Select, quad4Select];
+
+for (const select of allSelects) {
+  let blankOption = document.createElement("option");
+  blankOption.textContent = "Set Site";
+  select.appendChild(blankOption);
+  for (const site of iFrammableSites) {
+    let option = document.createElement("option");
+    option.textContent = site.name;
+    option.value = site.url;
+    select.appendChild(option);
+  }
+
+  select.addEventListener("change", function () {
+    if (this.value !== "Set Site") {
+      const iframe = document.createElement("iframe");
+      iframe.src = this.value;
+
+      this.parentElement.appendChild(iframe);
+      this.style.display = "none";
+    }
+  });
+}
+
+// End selecting iframe site logic
+
+// Begin reset button logic
+
+const resetButton = document.querySelector(".reset-button");
+resetButton.addEventListener("click", function () {
+  window.location.reload();
+});
+
+// End reset button logic
+
+// Begin color picking logic
+const allQuads = [quad1, quad2, quad3, quad4];
+const colorInput = document.querySelector(".color-input");
+
+const savedColor = localStorage.getItem("selectedColor");
+if (savedColor) {
+  for (const quad of allQuads) {
+    quad.style.backgroundColor = savedColor;
+  }
+  colorInput.value = savedColor;
+}
+
+colorInput.addEventListener("input", (event) => {
+  const selectedColor = event.target.value;
+  for (const quad of allQuads) {
+    quad.style.backgroundColor = selectedColor;
+  }
+  localStorage.setItem("selectedColor", selectedColor);
+});
+
+// End color picking logic
