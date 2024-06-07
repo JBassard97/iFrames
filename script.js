@@ -15,6 +15,8 @@ let initialY;
 let xOffset = 0;
 let yOffset = 0;
 
+// Begin resizing logic
+
 ball.addEventListener("mousedown", dragStart);
 ball.addEventListener("mouseup", dragEnd);
 
@@ -22,6 +24,7 @@ window.addEventListener("resize", function () {
   mainWidth = main.clientWidth;
   mainHeight = main.clientHeight;
   positionBall();
+  updateQuadrantWidths();
 });
 
 function positionBall() {
@@ -71,9 +74,25 @@ function setTranslate(xPos, yPos, el) {
 function updateQuadrantWidths() {
   const ballRect = ball.getBoundingClientRect();
   const ballX = ballRect.left + ballDiameter / 2;
+  const ballY = ballRect.top + ballDiameter / 2;
 
-  quad1.style.width = `${ballX}px`;
-  quad3.style.width = `${ballX}px`;
+  quad1.style.width = `${ballX + 1}px`;
+  quad2.style.width = `${mainWidth - ballX}px`;
+
+  quad3.style.width = `${ballX + 1}px`;
+  quad4.style.width = `${mainWidth - ballX}px`;
+
+  quad1.style.height = `${ballY - ballDiameter + 3}px`;
+  quad2.style.height = `${ballY - ballDiameter + 3}px`;
+  quad3.style.height = `${mainHeight - ballY + ballDiameter - 3}px`;
+  quad4.style.height = `${mainHeight - ballY + ballDiameter - 3}px`;
 }
 
 positionBall();
+
+// End resizing logic
+
+const quad1Select = document.querySelector(".quad1-select");
+const quad2Select = document.querySelector(".quad2-select");
+const quad3Select = document.querySelector(".quad3-select");
+const quad4Select = document.querySelector(".quad4-select");
